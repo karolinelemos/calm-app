@@ -1,0 +1,136 @@
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+var _jsxFileName = '/home/blsrocks/AwesomeProject/src/components/Home/Home.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require('react-native');
+
+var _reactNativeRouterFlux = require('react-native-router-flux');
+
+var _reactNativeMenu = require('react-native-menu');
+
+var _reactNativeMenu2 = babelHelpers.interopRequireDefault(_reactNativeMenu);
+
+var _Dimensions = require('Dimensions');
+
+var _Dimensions2 = babelHelpers.interopRequireDefault(_Dimensions);
+
+var _Navigation = require('./Navigation');
+
+var _Navigation2 = babelHelpers.interopRequireDefault(_Navigation);
+
+var _frase = require('../../images/frase7.jpg');
+
+var _frase2 = babelHelpers.interopRequireDefault(_frase);
+
+var DEVICE_WIDTH = _Dimensions2.default.get('window').width;
+var DEVICE_HEIGHT = _Dimensions2.default.get('window').height;
+var MARGIN = 40;
+
+var Home = function (_Component) {
+	babelHelpers.inherits(Home, _Component);
+
+	function Home() {
+		babelHelpers.classCallCheck(this, Home);
+		return babelHelpers.possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this));
+	}
+
+	babelHelpers.createClass(Home, [{
+		key: '_onPress',
+		value: function _onPress() {}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				_reactNativeMenu.MenuContext,
+				{ style: { flex: 1 }, __source: {
+						fileName: _jsxFileName,
+						lineNumber: 35
+					}
+				},
+				_react2.default.createElement(_Navigation2.default, {
+					__source: {
+						fileName: _jsxFileName,
+						lineNumber: 36
+					}
+				}),
+				_react2.default.createElement(
+					_reactNative.View,
+					{ style: { flex: 1, justifyContent: 'center', alignItems: 'center' }, __source: {
+							fileName: _jsxFileName,
+							lineNumber: 37
+						}
+					},
+					_react2.default.createElement(_reactNative.Image, { style: { width: 300, height: 300 }, source: _frase2.default, __source: {
+							fileName: _jsxFileName,
+							lineNumber: 38
+						}
+					}),
+					_react2.default.createElement(
+						_reactNative.TouchableOpacity,
+						{ style: styles.button,
+							onPress: this._onPress,
+							activeOpacity: 1, __source: {
+								fileName: _jsxFileName,
+								lineNumber: 39
+							}
+						},
+						_react2.default.createElement(
+							_reactNative.Text,
+							{ style: styles.textButton, __source: {
+									fileName: _jsxFileName,
+									lineNumber: 42
+								}
+							},
+							'INICIAR'
+						)
+					)
+				)
+			);
+		}
+	}]);
+	return Home;
+}(_react.Component);
+
+exports.default = Home;
+
+
+var styles = _reactNative.StyleSheet.create({
+	container: {
+		flex: 3,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: '#FFF'
+	},
+	image: {
+		width: 260,
+		height: 100
+	},
+	text: {
+		color: 'white',
+		fontWeight: 'bold',
+		backgroundColor: 'transparent',
+		marginTop: 20
+	},
+	textButton: {
+		color: 'white',
+		fontWeight: 'bold',
+		backgroundColor: 'transparent'
+	},
+	button: {
+		alignItems: 'center',
+		width: DEVICE_WIDTH - 40,
+		marginHorizontal: 20,
+		justifyContent: 'center',
+		backgroundColor: '#F035E0',
+		height: MARGIN,
+		borderRadius: 20,
+		zIndex: 100,
+		marginTop: 30
+	}
+});

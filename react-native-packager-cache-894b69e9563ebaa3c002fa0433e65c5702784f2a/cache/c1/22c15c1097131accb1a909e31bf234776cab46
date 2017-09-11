@@ -1,0 +1,226 @@
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+var _jsxFileName = '/home/blsrocks/AwesomeProject/src/components/Home/Menu/History.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require('react-native');
+
+var _Dimensions = require('Dimensions');
+
+var _Dimensions2 = babelHelpers.interopRequireDefault(_Dimensions);
+
+var _leftArrow = require('../../../images/left-arrow.png');
+
+var _leftArrow2 = babelHelpers.interopRequireDefault(_leftArrow);
+
+var _HistoryList = require('./HistoryList');
+
+var _HistoryList2 = babelHelpers.interopRequireDefault(_HistoryList);
+
+var DEVICE_WIDTH = _Dimensions2.default.get('window').width;
+var DEVICE_HEIGHT = _Dimensions2.default.get('window').height;
+var MARGIN = 40;
+
+var History = function (_Component) {
+	babelHelpers.inherits(History, _Component);
+
+	function History() {
+		var _ref;
+
+		var _temp, _this, _ret;
+
+		babelHelpers.classCallCheck(this, History);
+
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_ref = History.__proto__ || Object.getPrototypeOf(History)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+			modalVisible: false
+		}, _temp), babelHelpers.possibleConstructorReturn(_this, _ret);
+	}
+
+	babelHelpers.createClass(History, [{
+		key: 'setModalVisible',
+		value: function setModalVisible(visible) {
+			this.setState({ modalVisible: visible });
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			return _react2.default.createElement(
+				_reactNative.View,
+				{
+					__source: {
+						fileName: _jsxFileName,
+						lineNumber: 35
+					}
+				},
+				_react2.default.createElement(
+					_reactNative.Modal,
+					{
+						animationType: "slide",
+						transparent: false,
+						visible: this.state.modalVisible,
+						onRequestClose: function onRequestClose() {
+							_this2.setModalVisible(!_this2.state.modalVisible);
+						},
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 36
+						}
+					},
+					_react2.default.createElement(
+						_reactNative.View,
+						{
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 42
+							}
+						},
+						_react2.default.createElement(
+							_reactNative.View,
+							{
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 43
+								}
+							},
+							_react2.default.createElement(
+								_reactNative.View,
+								{ style: styles.topStyle, __source: {
+										fileName: _jsxFileName,
+										lineNumber: 44
+									}
+								},
+								_react2.default.createElement(
+									_reactNative.TouchableOpacity,
+									{
+										onPress: function onPress() {
+											_this2.setModalVisible(!_this2.state.modalVisible);
+										},
+										activeOpacity: 1, __source: {
+											fileName: _jsxFileName,
+											lineNumber: 45
+										}
+									},
+									_react2.default.createElement(_reactNative.Image, { style: { width: 15, height: 15 }, source: _leftArrow2.default, __source: {
+											fileName: _jsxFileName,
+											lineNumber: 48
+										}
+									})
+								),
+								_react2.default.createElement(
+									_reactNative.Text,
+									{ style: styles.textH1, __source: {
+											fileName: _jsxFileName,
+											lineNumber: 50
+										}
+									},
+									' Hist\xF3rico '
+								)
+							),
+							_react2.default.createElement(
+								_HistoryList2.default,
+								{ title: '12/06/2017 - Titulo', __source: {
+										fileName: _jsxFileName,
+										lineNumber: 52
+									}
+								},
+								_react2.default.createElement(
+									_reactNative.Text,
+									{
+										__source: {
+											fileName: _jsxFileName,
+											lineNumber: 53
+										}
+									},
+									'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+								)
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					_reactNative.TouchableHighlight,
+					{ onPress: function onPress() {
+							_this2.setModalVisible(true);
+						}, __source: {
+							fileName: _jsxFileName,
+							lineNumber: 59
+						}
+					},
+					_react2.default.createElement(
+						_reactNative.Text,
+						{
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 62
+							}
+						},
+						'Hist\xF3rico'
+					)
+				)
+			);
+		}
+	}]);
+	return History;
+}(_react.Component);
+
+exports.default = History;
+
+
+var styles = _reactNative.StyleSheet.create({
+	topStyle: {
+		width: '100%',
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		padding: 10,
+		backgroundColor: '#F035E0'
+	},
+	textH1: {
+		color: 'white',
+		fontSize: 21
+	},
+	input: {
+		backgroundColor: 'rgba(255, 255, 255, 0.4)',
+		width: DEVICE_WIDTH - 40,
+		height: 40,
+		marginHorizontal: 20,
+		paddingLeft: 45,
+		borderRadius: 20,
+		color: '#000',
+		marginTop: 20
+	},
+	inputWrapper: {
+		flex: 1
+	},
+	inlineImg: {
+		position: 'absolute',
+		zIndex: 99,
+		width: 22,
+		height: 22,
+		left: 35,
+		top: 9
+	},
+	button: {
+		alignItems: 'center',
+		width: DEVICE_WIDTH - 40,
+		marginHorizontal: 20,
+		justifyContent: 'center',
+		backgroundColor: '#F035E0',
+		height: MARGIN,
+		borderRadius: 20,
+		zIndex: 100,
+		marginTop: 30
+	}
+});

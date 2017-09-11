@@ -1,0 +1,137 @@
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+var _jsxFileName = '/home/blsrocks/AwesomeProject/src/components/Home/Navigation.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require('react-native');
+
+var _reactNativeRouterFlux = require('react-native-router-flux');
+
+var _reactNativeMenu = require('react-native-menu');
+
+var _reactNativeMenu2 = babelHelpers.interopRequireDefault(_reactNativeMenu);
+
+var _Profile = require('./Menu/Profile');
+
+var _Profile2 = babelHelpers.interopRequireDefault(_Profile);
+
+var _History = require('./Menu/History');
+
+var _History2 = babelHelpers.interopRequireDefault(_History);
+
+var Navigation = function (_Component) {
+	babelHelpers.inherits(Navigation, _Component);
+
+	function Navigation() {
+		babelHelpers.classCallCheck(this, Navigation);
+		return babelHelpers.possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this));
+	}
+
+	babelHelpers.createClass(Navigation, [{
+		key: '_onPress',
+		value: function _onPress() {}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				_reactNative.View,
+				{ style: { padding: 10, flexDirection: 'row', backgroundColor: '#F035E0' }, __source: {
+						fileName: _jsxFileName,
+						lineNumber: 29
+					}
+				},
+				_react2.default.createElement(
+					_reactNative.View,
+					{ style: { flex: 1 }, __source: {
+							fileName: _jsxFileName,
+							lineNumber: 30
+						}
+					},
+					_react2.default.createElement(
+						_reactNative.Text,
+						{ style: { color: 'white' }, __source: {
+								fileName: _jsxFileName,
+								lineNumber: 31
+							}
+						},
+						' Calm App'
+					)
+				),
+				_react2.default.createElement(
+					_reactNativeMenu2.default,
+					{
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 33
+						}
+					},
+					_react2.default.createElement(
+						_reactNativeMenu.MenuTrigger,
+						{
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 34
+							}
+						},
+						_react2.default.createElement(
+							_reactNative.Text,
+							{ style: { fontSize: 20, color: 'white' }, __source: {
+									fileName: _jsxFileName,
+									lineNumber: 35
+								}
+							},
+							'\u22EE'
+						)
+					),
+					_react2.default.createElement(
+						_reactNativeMenu.MenuOptions,
+						{
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 37
+							}
+						},
+						_react2.default.createElement(
+							_reactNativeMenu.MenuOption,
+							{
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 38
+								}
+							},
+							_react2.default.createElement(_History2.default, {
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 39
+								}
+							})
+						),
+						_react2.default.createElement(
+							_reactNativeMenu.MenuOption,
+							{
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 41
+								}
+							},
+							_react2.default.createElement(_Profile2.default, {
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 42
+								}
+							})
+						)
+					)
+				)
+			);
+		}
+	}]);
+	return Navigation;
+}(_react.Component);
+
+exports.default = Navigation;

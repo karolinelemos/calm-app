@@ -1,0 +1,244 @@
+var _jsxFileName = '/home/blsrocks/AwesomeProject/node_modules/react-native-menu/src/menu/makeMenuContext.js';
+var TimerMixin = require('react-timer-mixin');
+var PropTypes = require('prop-types');
+var createClass = require('create-react-class');
+
+var nextID = 1;
+
+module.exports = function (React, ReactNative, _ref) {
+  var model = _ref.model,
+      styles = _ref.styles;
+  var UIManager = ReactNative.UIManager,
+      TouchableWithoutFeedback = ReactNative.TouchableWithoutFeedback,
+      ScrollView = ReactNative.ScrollView,
+      View = ReactNative.View,
+      BackHandler = ReactNative.BackHandler;
+
+  var AnimatedOptionsContainer = require('./makeAnimatedOptionsContainer')(React, ReactNative);
+
+  var once = function once(fn) {
+    var called = false;
+    return function () {
+      if (!called) {
+        called = true;
+        fn.apply(undefined, arguments);
+      }
+    };
+  };
+
+  var defaultOptionsContainerRenderer = function defaultOptionsContainerRenderer(options) {
+    return React.createElement(
+      ScrollView,
+      {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 29
+        }
+      },
+      options
+    );
+  };
+
+  var makeOptions = function makeOptions(options, _ref2) {
+    var top = _ref2.top,
+        right = _ref2.right;
+    var _options$props = options.props,
+        optionsContainerStyle = _options$props.optionsContainerStyle,
+        _options$props$render = _options$props.renderOptionsContainer,
+        renderOptionsContainer = _options$props$render === undefined ? defaultOptionsContainerRenderer : _options$props$render;
+
+    return React.createElement(
+      AnimatedOptionsContainer,
+      { style: [styles.optionsContainer, { top: top, right: right }, optionsContainerStyle], __source: {
+          fileName: _jsxFileName,
+          lineNumber: 37
+        }
+      },
+      renderOptionsContainer(options)
+    );
+  };
+
+  var NULL_HOOKS = {
+    didOpen: function didOpen() {},
+    didClose: function didClose() {}
+  };
+
+  return createClass({
+    displayName: 'MenuContext',
+    propTypes: {
+      detectBackHandler: PropTypes.bool
+    },
+    getDefaultProps: function getDefaultProps() {
+      return {
+        detectBackHandler: true
+      };
+    },
+
+    mixins: [TimerMixin],
+
+    isMenuOpen: function isMenuOpen() {
+      return this.state.openedMenu;
+    },
+    openMenu: function openMenu(name) {
+      var _this = this;
+
+      var handle = ReactNative.findNodeHandle(this._menus[name].ref);
+      UIManager.measure(handle, function (x, y, w, h, px, py) {
+        _this._menus[name].measurements = { x: x, y: y, w: w, h: h, px: px, py: py };
+
+        _this.setState({
+          openedMenu: name,
+          menuOptions: _this._makeAndPositionOptions(name, _this._menus[name].measurements),
+          backdropWidth: _this._ownMeasurements.w
+        });
+
+        _this._activeMenuHooks = _this._menus[name];
+        _this._activeMenuHooks && _this._activeMenuHooks.didOpen();
+      });
+    },
+    closeMenu: function closeMenu() {
+      if (this.props.onCloseMenu) {
+        this.props.onCloseMenu(this.state);
+      }
+      this.setState({
+        openedMenu: '',
+        menuOptions: null
+      });
+
+      this._activeMenuHooks && this._activeMenuHooks.didClose();
+      this._activeMenuHooks = NULL_HOOKS;
+    },
+    toggleMenu: function toggleMenu(name) {
+      if (this.state.openedMenu === name) {
+        this.closeMenu(name);
+      } else {
+        this.openMenu(name);
+      }
+    },
+    getInitialState: function getInitialState() {
+      return {
+        openedMenu: '',
+        menuOptions: null,
+        optionsTop: 0,
+        optionsRight: 0,
+        backdropWidth: 0
+      };
+    },
+
+    childContextTypes: {
+      menuController: model.IMenuController
+    },
+    getChildContext: function getChildContext() {
+      var menuController = {
+        open: this.openMenu,
+        close: this.closeMenu,
+        toggle: this.toggleMenu,
+        registerMenu: this._registerMenu,
+        unregisterMenu: this._unregisterMenu,
+        registerOptionsElement: this._registerOptionsElement,
+        makeName: this._makeName
+      };
+      return { menuController: menuController };
+    },
+    componentWillMount: function componentWillMount() {
+      this._menus = {};
+      this._options = {};
+
+      this.onLayout = once(this.onLayout);
+    },
+    handleBackHandler: function handleBackHandler() {
+      if (this.isMenuOpen()) {
+        this.closeMenu();
+        return true;
+      }
+      return false;
+    },
+    onLayout: function onLayout() {
+      var _this2 = this;
+
+      var handle = ReactNative.findNodeHandle(this.refs.Container);
+      UIManager.measure(handle, function (x, y, w, h, px, py) {
+        _this2._ownMeasurements = { x: x, y: y, w: w, h: h, px: px, py: py };
+      });
+    },
+    _registerMenu: function _registerMenu(name, hooks) {
+      if (this._menus[name]) {
+        console.warn('Menu ' + name + ' has already been registered in this context. Please provide a different name.');
+      }
+
+      if (this.props.detectBackHandler) {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackHandler);
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackHandler);
+      }
+      this._menus[name] = hooks;
+    },
+    _unregisterMenu: function _unregisterMenu(name) {
+      delete this._menus[name];
+      delete this._options[name];
+    },
+    _registerOptionsElement: function _registerOptionsElement(name, options) {
+      var _this3 = this;
+
+      if (this.state.menuOptions === options) {
+        return;
+      }
+      this._options[name] = options;
+
+      this.setTimeout(function () {
+        if (_this3.state.openedMenu === name) {
+          _this3.setState({ menuOptions: _this3._makeAndPositionOptions(name, _this3._menus[name].measurements) });
+        }
+      }, 16);
+    },
+    _makeName: function _makeName() {
+      return 'menu-' + nextID++;
+    },
+    _makeAndPositionOptions: function _makeAndPositionOptions(name, menuMeasurements) {
+      var options = this._options[name];
+      var menuWidth = menuMeasurements.w,
+          menuPX = menuMeasurements.px,
+          menuPY = menuMeasurements.py;
+      var _ownMeasurements = this._ownMeasurements,
+          ownWidth = _ownMeasurements.w,
+          ownPX = _ownMeasurements.px,
+          ownPY = _ownMeasurements.py;
+
+      var optionsTop = menuPY - ownPY;
+      var optionsRight = ownWidth + ownPX - menuPX - menuWidth;
+      return makeOptions(options, { top: optionsTop, right: optionsRight });
+    },
+    render: function render() {
+      return React.createElement(
+        View,
+        { ref: 'Container', onLayout: this.onLayout, style: { flex: 1 }, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 190
+          }
+        },
+        React.createElement(
+          View,
+          { style: this.props.style, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 191
+            }
+          },
+          this.props.children
+        ),
+        React.createElement(
+          TouchableWithoutFeedback,
+          { onPress: this.closeMenu, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 194
+            }
+          },
+          React.createElement(View, { style: [styles.backdrop, this.state.openedMenu ? { width: this.state.backdropWidth, top: 0, bottom: 0 } : null], __source: {
+              fileName: _jsxFileName,
+              lineNumber: 195
+            }
+          })
+        ),
+        this.state.menuOptions
+      );
+    }
+  });
+};

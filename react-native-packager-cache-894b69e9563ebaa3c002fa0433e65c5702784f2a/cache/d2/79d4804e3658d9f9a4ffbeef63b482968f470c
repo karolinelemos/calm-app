@@ -1,0 +1,37 @@
+var _jsxFileName = '/home/blsrocks/AwesomeProject/node_modules/react-native-menu/src/menu/makeAnimatedOptionsContainer.js';
+var createClass = require('create-react-class');
+
+module.exports = function (React, ReactNative) {
+  var Animated = ReactNative.Animated,
+      Platform = ReactNative.Platform;
+
+  var TimerMixin = require('react-timer-mixin');
+
+  return createClass({
+    mixins: [TimerMixin],
+    getInitialState: function getInitialState() {
+      return { scaleAnim: new Animated.Value(Platform.OS === "android" ? 0.01 : 0.001) };
+    },
+    componentDidMount: function componentDidMount() {
+      var _this = this;
+
+      this.setTimeout(function () {
+        Animated.timing(_this.state.scaleAnim, {
+          duration: 60,
+          toValue: 1
+        }).start();
+      }, 16);
+    },
+    render: function render() {
+      return React.createElement(
+        Animated.View,
+        { style: [this.props.style, { transform: [{ scale: this.state.scaleAnim }] }], __source: {
+            fileName: _jsxFileName,
+            lineNumber: 23
+          }
+        },
+        this.props.children
+      );
+    }
+  });
+};

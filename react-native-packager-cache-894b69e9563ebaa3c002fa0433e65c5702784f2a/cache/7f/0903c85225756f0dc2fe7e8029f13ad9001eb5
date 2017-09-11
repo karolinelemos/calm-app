@@ -1,0 +1,73 @@
+Object.defineProperty(exports, "__esModule", {
+		value: true
+});
+exports.default = undefined;
+var _jsxFileName = '/home/blsrocks/AwesomeProject/src/components/Main.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNativeRouterFlux = require('react-native-router-flux');
+
+var _LoginScreen = require('./Login/LoginScreen');
+
+var _LoginScreen2 = babelHelpers.interopRequireDefault(_LoginScreen);
+
+var _Home = require('./Home/Home');
+
+var _Home2 = babelHelpers.interopRequireDefault(_Home);
+
+var Main = function (_Component) {
+		babelHelpers.inherits(Main, _Component);
+
+		function Main() {
+				babelHelpers.classCallCheck(this, Main);
+				return babelHelpers.possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+		}
+
+		babelHelpers.createClass(Main, [{
+				key: 'render',
+				value: function render() {
+						return _react2.default.createElement(
+								_reactNativeRouterFlux.Router,
+								{
+										__source: {
+												fileName: _jsxFileName,
+												lineNumber: 10
+										}
+								},
+								_react2.default.createElement(
+										_reactNativeRouterFlux.Scene,
+										{ key: 'root', __source: {
+														fileName: _jsxFileName,
+														lineNumber: 11
+												}
+										},
+										_react2.default.createElement(_reactNativeRouterFlux.Scene, { key: 'loginScreen',
+												component: _LoginScreen2.default,
+												animation: 'fade',
+												hideNavBar: true,
+												initial: true,
+												__source: {
+														fileName: _jsxFileName,
+														lineNumber: 12
+												}
+										}),
+										_react2.default.createElement(_reactNativeRouterFlux.Scene, { key: 'home',
+												component: _Home2.default,
+												animation: 'fade',
+												hideNavBar: true,
+												__source: {
+														fileName: _jsxFileName,
+														lineNumber: 18
+												}
+										})
+								)
+						);
+				}
+		}]);
+		return Main;
+}(_react.Component);
+
+exports.default = Main;

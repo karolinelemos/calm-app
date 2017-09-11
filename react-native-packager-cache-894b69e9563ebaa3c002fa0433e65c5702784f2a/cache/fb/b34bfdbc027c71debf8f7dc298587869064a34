@@ -1,0 +1,16 @@
+var PropTypes = require('prop-types');
+
+module.exports = function (React) {
+  var shape = PropTypes.shape,
+      func = PropTypes.func;
+
+
+  var IMenuController = shape({
+    open: func.isRequired,
+    close: func.isRequired,
+    toggle: func.isRequired,
+    registerOptionsElement: func.isRequired
+  });
+
+  return { IMenuController: IMenuController };
+};

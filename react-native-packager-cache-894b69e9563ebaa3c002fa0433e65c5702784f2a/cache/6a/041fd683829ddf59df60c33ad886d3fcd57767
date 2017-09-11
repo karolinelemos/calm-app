@@ -1,0 +1,40 @@
+var _jsxFileName = '/home/blsrocks/AwesomeProject/node_modules/react-native-menu/src/menu/makeMenuOptions.js';
+var createClass = require('create-react-class');
+
+module.exports = function (React, ReactNative, _ref) {
+  var styles = _ref.styles;
+  var TouchableWithoutFeedback = ReactNative.TouchableWithoutFeedback,
+      View = ReactNative.View;
+
+
+  return createClass({
+    displayName: 'MenuOptions',
+    onSelect: function onSelect(value) {
+      this.props.onSelect(value);
+    },
+    render: function render() {
+      var _this = this;
+
+      return React.createElement(
+        TouchableWithoutFeedback,
+        { style: [styles.options, this.props.style], __source: {
+            fileName: _jsxFileName,
+            lineNumber: 13
+          }
+        },
+        React.createElement(
+          View,
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 14
+            }
+          },
+          React.Children.map(this.props.children, function (x) {
+            return React.cloneElement(x, { onPress: _this.onSelect });
+          })
+        )
+      );
+    }
+  });
+};

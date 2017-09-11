@@ -1,0 +1,166 @@
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+var _jsxFileName = '/home/blsrocks/AwesomeProject/src/components/Home/Menu/HistoryList.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require('react-native');
+
+var _arrowUp = require('../../../images/arrow-up.png');
+
+var _arrowUp2 = babelHelpers.interopRequireDefault(_arrowUp);
+
+var _arrowDown = require('../../../images/arrow-down.png');
+
+var _arrowDown2 = babelHelpers.interopRequireDefault(_arrowDown);
+
+var HistoryList = function (_Component) {
+    babelHelpers.inherits(HistoryList, _Component);
+
+    function HistoryList(props) {
+        babelHelpers.classCallCheck(this, HistoryList);
+
+        var _this = babelHelpers.possibleConstructorReturn(this, (HistoryList.__proto__ || Object.getPrototypeOf(HistoryList)).call(this, props));
+
+        _this.icons = {
+            'up': _arrowUp2.default,
+            'down': _arrowDown2.default
+        };
+
+        _this.state = {
+            title: props.title,
+            expanded: true,
+            animation: new _reactNative.Animated.Value()
+        };
+        return _this;
+    }
+
+    babelHelpers.createClass(HistoryList, [{
+        key: 'toggle',
+        value: function toggle() {
+            var initialValue = this.state.expanded ? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
+                finalValue = this.state.expanded ? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
+
+            this.setState({
+                expanded: !this.state.expanded
+            });
+
+            this.state.animation.setValue(initialValue);
+            _reactNative.Animated.spring(this.state.animation, {
+                toValue: finalValue
+            }).start();
+        }
+    }, {
+        key: '_setMaxHeight',
+        value: function _setMaxHeight(event) {
+            this.setState({
+                maxHeight: event.nativeEvent.layout.height
+            });
+        }
+    }, {
+        key: '_setMinHeight',
+        value: function _setMinHeight(event) {
+            this.setState({
+                minHeight: event.nativeEvent.layout.height
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var icon = this.icons['down'];
+
+            if (this.state.expanded) {
+                icon = this.icons['up'];
+            }
+
+            return _react2.default.createElement(
+                _reactNative.Animated.View,
+                {
+                    style: [styles.container, { height: this.state.animation }], __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 67
+                    }
+                },
+                _react2.default.createElement(
+                    _reactNative.View,
+                    { style: styles.titleContainer, onLayout: this._setMinHeight.bind(this), __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 69
+                        }
+                    },
+                    _react2.default.createElement(
+                        _reactNative.Text,
+                        { style: styles.title, __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 70
+                            }
+                        },
+                        this.state.title
+                    ),
+                    _react2.default.createElement(
+                        _reactNative.TouchableHighlight,
+                        {
+                            style: styles.button,
+                            onPress: this.toggle.bind(this),
+                            underlayColor: '#fff', __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 71
+                            }
+                        },
+                        _react2.default.createElement(_reactNative.Image, {
+                            style: styles.buttonImage,
+                            source: icon,
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 75
+                            }
+                        })
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactNative.View,
+                    { style: styles.body, onLayout: this._setMaxHeight.bind(this), __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 82
+                        }
+                    },
+                    this.props.children
+                )
+            );
+        }
+    }]);
+    return HistoryList;
+}(_react.Component);
+
+exports.default = HistoryList;
+
+
+var styles = _reactNative.StyleSheet.create({
+    container: {
+        backgroundColor: '#fff',
+        margin: 10,
+        overflow: 'hidden'
+    },
+    titleContainer: {
+        flexDirection: 'row'
+    },
+    title: {
+        flex: 1,
+        padding: 10,
+        color: '#2a2f43',
+        fontWeight: 'bold'
+    },
+    button: {},
+    buttonImage: {
+        width: 15,
+        height: 15
+    },
+    body: {
+        padding: 10,
+        paddingTop: 0
+    }
+});

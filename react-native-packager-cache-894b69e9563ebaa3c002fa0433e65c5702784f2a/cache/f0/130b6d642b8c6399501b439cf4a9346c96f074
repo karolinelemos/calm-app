@@ -1,0 +1,181 @@
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+var _jsxFileName = '/home/blsrocks/AwesomeProject/src/components/Home.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require('react-native');
+
+var _reactNativeRouterFlux = require('react-native-router-flux');
+
+var _reactNativeMenu = require('react-native-menu');
+
+var _reactNativeMenu2 = babelHelpers.interopRequireDefault(_reactNativeMenu);
+
+var Home = function (_Component) {
+	babelHelpers.inherits(Home, _Component);
+
+	function Home() {
+		babelHelpers.classCallCheck(this, Home);
+		return babelHelpers.possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this));
+	}
+
+	babelHelpers.createClass(Home, [{
+		key: '_onPress',
+		value: function _onPress() {}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				_reactNativeMenu.MenuContext,
+				{ style: { flex: 1 }, __source: {
+						fileName: _jsxFileName,
+						lineNumber: 27
+					}
+				},
+				_react2.default.createElement(
+					_reactNative.View,
+					{ style: { padding: 10, flexDirection: 'row', backgroundColor: '#F035E0' }, __source: {
+							fileName: _jsxFileName,
+							lineNumber: 28
+						}
+					},
+					_react2.default.createElement(
+						_reactNative.View,
+						{ style: { flex: 1 }, __source: {
+								fileName: _jsxFileName,
+								lineNumber: 29
+							}
+						},
+						_react2.default.createElement(
+							_reactNative.Text,
+							{ style: { color: 'white' }, __source: {
+									fileName: _jsxFileName,
+									lineNumber: 30
+								}
+							},
+							'Bem vindo!'
+						)
+					),
+					_react2.default.createElement(
+						_reactNativeMenu2.default,
+						{ onSelect: function onSelect(value) {
+								return alert('User selected the number ' + value);
+							}, __source: {
+								fileName: _jsxFileName,
+								lineNumber: 32
+							}
+						},
+						_react2.default.createElement(
+							_reactNativeMenu.MenuTrigger,
+							{
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 33
+								}
+							},
+							_react2.default.createElement(
+								_reactNative.Text,
+								{ style: { fontSize: 20, color: 'white' }, __source: {
+										fileName: _jsxFileName,
+										lineNumber: 34
+									}
+								},
+								'\u22EE'
+							)
+						),
+						_react2.default.createElement(
+							_reactNativeMenu.MenuOptions,
+							{
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 36
+								}
+							},
+							_react2.default.createElement(
+								_reactNativeMenu.MenuOption,
+								{ value: 1, __source: {
+										fileName: _jsxFileName,
+										lineNumber: 37
+									}
+								},
+								_react2.default.createElement(
+									_reactNative.Text,
+									{
+										__source: {
+											fileName: _jsxFileName,
+											lineNumber: 38
+										}
+									},
+									'One'
+								)
+							),
+							_react2.default.createElement(
+								_reactNativeMenu.MenuOption,
+								{ value: 2, __source: {
+										fileName: _jsxFileName,
+										lineNumber: 40
+									}
+								},
+								_react2.default.createElement(
+									_reactNative.Text,
+									{
+										__source: {
+											fileName: _jsxFileName,
+											lineNumber: 41
+										}
+									},
+									'Two'
+								)
+							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					_reactNative.View,
+					{ style: { flex: 1, justifyContent: 'center', alignItems: 'center' }, __source: {
+							fileName: _jsxFileName,
+							lineNumber: 46
+						}
+					},
+					_react2.default.createElement(
+						_reactNative.Text,
+						{
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 46
+							}
+						},
+						'Hello!'
+					)
+				)
+			);
+		}
+	}]);
+	return Home;
+}(_react.Component);
+
+exports.default = Home;
+
+
+var styles = _reactNative.StyleSheet.create({
+	container: {
+		flex: 3,
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	image: {
+		width: 260,
+		height: 100
+	},
+	text: {
+		color: 'white',
+		fontWeight: 'bold',
+		backgroundColor: 'transparent',
+		marginTop: 20
+	}
+});

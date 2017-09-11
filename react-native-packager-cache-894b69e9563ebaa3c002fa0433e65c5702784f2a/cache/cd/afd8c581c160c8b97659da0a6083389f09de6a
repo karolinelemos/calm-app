@@ -1,0 +1,77 @@
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+var _jsxFileName = '/home/blsrocks/AwesomeProject/src/components/SignupSection.js';
+
+var _react = require('react');
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _Dimensions = require('Dimensions');
+
+var _Dimensions2 = babelHelpers.interopRequireDefault(_Dimensions);
+
+var _reactNative = require('react-native');
+
+var SignupSection = function (_Component) {
+	babelHelpers.inherits(SignupSection, _Component);
+
+	function SignupSection() {
+		babelHelpers.classCallCheck(this, SignupSection);
+		return babelHelpers.possibleConstructorReturn(this, (SignupSection.__proto__ || Object.getPrototypeOf(SignupSection)).apply(this, arguments));
+	}
+
+	babelHelpers.createClass(SignupSection, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				_reactNative.View,
+				{ style: styles.container, __source: {
+						fileName: _jsxFileName,
+						lineNumber: 12
+					}
+				},
+				_react2.default.createElement(
+					_reactNative.Text,
+					{ style: styles.text, __source: {
+							fileName: _jsxFileName,
+							lineNumber: 13
+						}
+					},
+					'Criar conta'
+				),
+				_react2.default.createElement(
+					_reactNative.Text,
+					{ style: styles.text, __source: {
+							fileName: _jsxFileName,
+							lineNumber: 14
+						}
+					},
+					'Esqueci minha senha'
+				)
+			);
+		}
+	}]);
+	return SignupSection;
+}(_react.Component);
+
+exports.default = SignupSection;
+
+
+var DEVICE_WIDTH = _Dimensions2.default.get('window').width;
+var DEVICE_HEIGHT = _Dimensions2.default.get('window').height;
+
+var styles = _reactNative.StyleSheet.create({
+	container: {
+		flex: 1,
+		top: 65,
+		width: DEVICE_WIDTH,
+		flexDirection: 'row',
+		justifyContent: 'space-around'
+	},
+	text: {
+		color: 'white',
+		backgroundColor: 'transparent'
+	}
+});

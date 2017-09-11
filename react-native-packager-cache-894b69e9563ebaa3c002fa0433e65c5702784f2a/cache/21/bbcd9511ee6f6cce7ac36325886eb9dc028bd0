@@ -1,0 +1,66 @@
+var _jsxFileName = '/home/blsrocks/AwesomeProject/node_modules/react-native-menu/src/menu/makeMenuTrigger.js';
+var PropTypes = require('prop-types');
+var createClass = require('create-react-class');
+
+module.exports = function (React, ReactNative, _ref) {
+  var model = _ref.model;
+  var TouchableWithoutFeedback = ReactNative.TouchableWithoutFeedback,
+      View = ReactNative.View;
+
+
+  return createClass({
+    displayName: 'MenuTrigger',
+    propTypes: {
+      disabled: PropTypes.bool,
+      renderTouchable: PropTypes.func
+    },
+    getDefaultProps: function getDefaultProps() {
+      return { disabled: false };
+    },
+
+    contextTypes: {
+      menuController: model.IMenuController,
+      getClosestMenuName: PropTypes.func.isRequired
+    },
+    onPress: function onPress() {
+      if (!this.props.disabled) {
+        var _context = this.context,
+            menuController = _context.menuController,
+            getClosestMenuName = _context.getClosestMenuName;
+
+        menuController.toggle(getClosestMenuName());
+      }
+    },
+    render: function render() {
+      if (this.props.renderTouchable) {
+        return React.cloneElement(this.props.renderTouchable(), { onPress: this.onPress }, React.createElement(
+          View,
+          { style: this.props.style, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 29
+            }
+          },
+          this.props.children
+        ));
+      }
+      return React.createElement(
+        TouchableWithoutFeedback,
+        babelHelpers.extends({ onPress: this.onPress }, this.props, {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 35
+          }
+        }),
+        React.createElement(
+          View,
+          { style: this.props.style, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 36
+            }
+          },
+          this.props.children
+        )
+      );
+    }
+  });
+};
