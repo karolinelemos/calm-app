@@ -102,7 +102,11 @@ export default class Home extends Component {
 				 </View>
 			  	: 
 			  		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-			  			<Text>segunda parte</Text>
+			  			<TouchableOpacity style={styles.button}
+							onPress={this._openGalery}
+							activeOpacity={1}>
+							<Text style={styles.textButton}>GALERIA</Text> 
+						</TouchableOpacity>
 			  		</View>
 			  	}
 
