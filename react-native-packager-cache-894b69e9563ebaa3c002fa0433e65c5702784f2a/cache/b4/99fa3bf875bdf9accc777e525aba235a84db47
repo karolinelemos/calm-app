@@ -28,6 +28,10 @@ var _frase = require('../../images/frase7.jpg');
 
 var _frase2 = babelHelpers.interopRequireDefault(_frase);
 
+var _exercicio = require('../../images/exercicio.gif');
+
+var _exercicio2 = babelHelpers.interopRequireDefault(_exercicio);
+
 var DEVICE_WIDTH = _Dimensions2.default.get('window').width;
 var DEVICE_HEIGHT = _Dimensions2.default.get('window').height;
 var MARGIN = 40;
@@ -37,12 +41,61 @@ var Home = function (_Component) {
 
 	function Home() {
 		babelHelpers.classCallCheck(this, Home);
-		return babelHelpers.possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this));
+
+		var _this = babelHelpers.possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this));
+
+		_this.state = {
+			image: _frase2.default,
+			button: true,
+			message: '',
+			count: 6,
+			Istext: false,
+			cancelButton: false,
+			stage1: true
+		};
+
+		_this._onPress = _this._onPress.bind(_this);
+		_this._continueApp = _this._continueApp.bind(_this);
+		return _this;
 	}
 
 	babelHelpers.createClass(Home, [{
 		key: '_onPress',
-		value: function _onPress() {}
+		value: function _onPress() {
+			var _t = this;
+			var intervalo = setInterval(function () {
+				var a = _t.state.count;
+				a--;
+				_t.setState({ count: a, Istext: true,
+					button: false, message: "Respire acompanhando a imagem a seguir." });
+			}, 1000);
+
+			setTimeout(function () {
+				clearInterval(intervalo);
+				_t.setState({ Istext: false,
+					message: "Concentre-se na sua respiração. Está tudo bem...", cancelButton: true, image: _exercicio2.default });
+			}, 6000);
+
+			setTimeout(function () {
+				_t.setState({
+					message: "Não deixe seus medos decidirem por você..." });
+			}, 10000);
+
+			setTimeout(function () {
+				_t.setState({
+					message: "Lembre-se de coisas boas!" });
+			}, 14000);
+
+			setTimeout(function () {
+				_t.setState({
+					message: "Quando se sentir pronto, pressione continuar." });
+			}, 18000);
+		}
+	}, {
+		key: '_continueApp',
+		value: function _continueApp() {
+			this.setState({ stage1: false });
+		}
 	}, {
 		key: 'render',
 		value: function render() {
@@ -50,45 +103,102 @@ var Home = function (_Component) {
 				_reactNativeMenu.MenuContext,
 				{ style: { flex: 1 }, __source: {
 						fileName: _jsxFileName,
-						lineNumber: 35
+						lineNumber: 79
 					}
 				},
 				_react2.default.createElement(_Navigation2.default, {
 					__source: {
 						fileName: _jsxFileName,
-						lineNumber: 36
+						lineNumber: 80
 					}
 				}),
-				_react2.default.createElement(
+				this.state.stage1 ? _react2.default.createElement(
 					_reactNative.View,
 					{ style: { flex: 1, justifyContent: 'center', alignItems: 'center' }, __source: {
 							fileName: _jsxFileName,
-							lineNumber: 37
+							lineNumber: 82
 						}
 					},
-					_react2.default.createElement(_reactNative.Image, { style: { width: 300, height: 300 }, source: _frase2.default, __source: {
+					!this.state.Istext ? _react2.default.createElement(_reactNative.Image, { style: { width: 300, height: 300 }, source: this.state.image, __source: {
 							fileName: _jsxFileName,
-							lineNumber: 38
+							lineNumber: 84
 						}
-					}),
-					_react2.default.createElement(
+					}) : _react2.default.createElement(
+						_reactNative.Text,
+						{ style: { fontSize: 24 }, __source: {
+								fileName: _jsxFileName,
+								lineNumber: 85
+							}
+						},
+						' ',
+						this.state.count,
+						' '
+					),
+					this.state.button ? _react2.default.createElement(
 						_reactNative.TouchableOpacity,
 						{ style: styles.button,
 							onPress: this._onPress,
 							activeOpacity: 1, __source: {
 								fileName: _jsxFileName,
-								lineNumber: 39
+								lineNumber: 88
 							}
 						},
 						_react2.default.createElement(
 							_reactNative.Text,
 							{ style: styles.textButton, __source: {
 									fileName: _jsxFileName,
-									lineNumber: 42
+									lineNumber: 91
 								}
 							},
 							'INICIAR'
 						)
+					) : _react2.default.createElement(
+						_reactNative.Text,
+						{
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 93
+							}
+						},
+						' ',
+						this.state.message,
+						' '
+					),
+					this.state.cancelButton ? _react2.default.createElement(
+						_reactNative.TouchableOpacity,
+						{ style: styles.button,
+							onPress: this._continueApp,
+							activeOpacity: 1, __source: {
+								fileName: _jsxFileName,
+								lineNumber: 96
+							}
+						},
+						_react2.default.createElement(
+							_reactNative.Text,
+							{ style: styles.textButton, __source: {
+									fileName: _jsxFileName,
+									lineNumber: 99
+								}
+							},
+							'CONTINUAR'
+						)
+					) : null
+				) : _react2.default.createElement(
+					_reactNative.View,
+					{ style: { flex: 1, justifyContent: 'center', alignItems: 'center' }, __source: {
+							fileName: _jsxFileName,
+							lineNumber: 104
+						}
+					},
+					_react2.default.createElement(
+						_reactNative.Text,
+						{
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 105
+							}
+						},
+						'segunda parte'
 					)
 				)
 			);

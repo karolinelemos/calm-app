@@ -40,7 +40,7 @@ var Navigation = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				_reactNative.View,
-				{ style: { padding: 10, flexDirection: 'row', backgroundColor: '#F035E0' }, __source: {
+				{ style: { padding: 40, flexDirection: 'row', backgroundColor: '#F035E0' }, __source: {
 						fileName: _jsxFileName,
 						lineNumber: 29
 					}
@@ -119,10 +119,25 @@ var Navigation = function (_Component) {
 									lineNumber: 41
 								}
 							},
-							_react2.default.createElement(_Profile2.default, {
+							_react2.default.createElement(_History2.default, {
 								__source: {
 									fileName: _jsxFileName,
 									lineNumber: 42
+								}
+							})
+						),
+						_react2.default.createElement(
+							_reactNativeMenu.MenuOption,
+							{
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 44
+								}
+							},
+							_react2.default.createElement(_Profile2.default, {
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 45
 								}
 							})
 						)

@@ -39,6 +39,9 @@ export default class Navigation extends Component {
 		        	<History />
 		        </MenuOption>
 		        <MenuOption>
+		        	<History />
+		        </MenuOption>
+		        <MenuOption>
 		         	<Profile />
 		        </MenuOption>
 		      </MenuOptions>
