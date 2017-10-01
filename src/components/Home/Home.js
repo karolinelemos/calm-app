@@ -8,7 +8,8 @@ import {
 	Easing,
 	Text,
 	ToolbarAndroid,
-	SwitchAndroid
+	SwitchAndroid,
+	TextInput
 } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Menu, { MenuContext, MenuOptions, MenuOption, MenuTrigger } from 'react-native-menu';
@@ -16,6 +17,7 @@ import Dimensions from 'Dimensions';
 import Navigation from './Navigation';
 import image1 from '../../images/frase7.jpg';
 import tutorial from '../../images/exercicio.gif';
+import image2 from '../../images/frase2.jpg';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -32,7 +34,8 @@ export default class Home extends Component {
             count: 6,
             Istext: false, 
             cancelButton: false, 
-            stage1: true
+            stage1: true,
+            history: ''
         }
 
         this._onPress = this._onPress.bind(this);
@@ -102,13 +105,27 @@ export default class Home extends Component {
 				 </View>
 			  	: 
 			  		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+			  			<Image style={{width: 200, height: 200}} source={image2} />
+			  			<Text style={{paddingLeft: 20, paddingRight: 20}}>Como você está se sentindo? 
+			  			Consegue identificar o que fez com que você se sentisse mal?
+			  			Converse com você.</Text>
+			  			<TextInput style={styles.textArea}
+							placeholder='Descrição'
+							autoCapitalize={'none'}
+							returnKeyType={'done'}
+							multiline = {true}
+							numberOfLines = {10}
+							autoCorrect={false}
+							onChangeText={(history) => this.setState({history})}
+							placeholderTextColor='white'
+							underlineColorAndroid='#F035E0' />
 			  			<TouchableOpacity style={styles.button}
 							onPress={this._openGalery}
 							activeOpacity={1}>
-							<Text style={styles.textButton}>GALERIA</Text> 
+							<Text style={styles.textButton}>RELATAR</Text> 
 						</TouchableOpacity>
 			  		</View>
-			  	}
+			  	}			
 
 			</MenuContext>
 		);
@@ -125,6 +142,14 @@ const styles = StyleSheet.create({
 	image: {
 		width: 260,
 		height: 100,
+	},
+	textArea: {
+		width: DEVICE_WIDTH - 40,
+		height: 100,
+		marginHorizontal: 20,
+		paddingLeft: 45,
+		borderRadius: 0,
+		color: '#000'
 	},
 	text: {
 		color: 'white',
