@@ -13,19 +13,23 @@ import {
 import { Actions, ActionConst } from 'react-native-router-flux';
 
 import spinner from '../../images/loading.gif';
+import axios from 'axios';
+import serverURL from '../../serverURL';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 const MARGIN = 40;
 
 export default class ButtonSubmit extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			isLoading: false,
+			errorMessage: null
 		};
 
+		
 		this.buttonAnimated = new Animated.Value(0);
 		this.growAnimated = new Animated.Value(0);
 		this._onPress = this._onPress.bind(this);
@@ -44,16 +48,58 @@ export default class ButtonSubmit extends Component {
 			}
 		).start();
 
-		setTimeout(() => {
-			this._onGrow();
-		}, 2000);
+		const _this = this, 
+		email = this.props.formValue.email, 
+		password = this.props.formValue.password;
 
-		setTimeout(() => {
-			Actions.home();
-			this.setState({ isLoading: false });
-			this.buttonAnimated.setValue(0);
-			this.growAnimated.setValue(0);
-		}, 2300);
+		_this.setState({errorMessage: null});
+
+		if(email && password)
+		{		
+	    	axios.post(serverURL + 'verifyLogin', {
+			    email: email,
+			    password: password
+			  })
+			  .then(function (response) {
+			    if(response.data) {
+			    	setTimeout(() => {
+						_this._onGrow();
+					}, 2000);
+
+			    	/* 
+					setTimeout(() => {
+						Actions.home('teste');
+						_this.setState({ isLoading: false });
+						_this.buttonAnimated.setValue(0);
+						_this.growAnimated.setValue(0);
+					}, 2300); */
+
+					Actions.home(response.data);
+					_this.setState({ isLoading: false });
+					_this.buttonAnimated.setValue(0);
+					_this.growAnimated.setValue(0);
+			    } else {
+			    	_this.setState({ isLoading: false });
+			    	_this.setState({errorMessage: 'Usuário ou senha inválidos.'});
+			    	_this.setState({ isLoading: false });
+					_this.buttonAnimated.setValue(0);
+					_this.growAnimated.setValue(0);
+			    }
+			  })
+			  .catch(function (error) {
+			   	_this.setState({errorMessage: 'Erro interno.'});
+			  	_this.setState({ isLoading: false });
+				_this.buttonAnimated.setValue(0);
+				_this.growAnimated.setValue(0);
+			});
+		} else 
+		{
+				_this.setState({errorMessage: 'Digite os dados de login.'});
+			  	_this.setState({ isLoading: false });
+				_this.buttonAnimated.setValue(0);
+				_this.growAnimated.setValue(0);
+		}
+
 	}
 
 	_onGrow() {
@@ -78,19 +124,26 @@ export default class ButtonSubmit extends Component {
 	  });
 
 		return (
-			<View style={styles.container}>
-				<Animated.View style={{width: changeWidth}}>
-					<TouchableOpacity style={styles.button}
-						onPress={this._onPress}
-						activeOpacity={1} >
-							{this.state.isLoading ?
-								<Image source={spinner} style={styles.image} />
-								:
-								<Text style={styles.text}>ENTRAR</Text>
-							}
+			<View>
+				<View style={styles.container}>
+					<Animated.View style={{width: changeWidth}}>
+						<TouchableOpacity style={styles.button}
+							onPress={this._onPress}
+							activeOpacity={1} >
+								{this.state.isLoading ?
+									<Image source={spinner} style={styles.image} />
+									:
+									<Text style={styles.text}>ENTRAR</Text>
+								}
 					</TouchableOpacity>
 					<Animated.View style={[ styles.circle, {transform: [{scale: changeScale}]} ]} />
 				</Animated.View>
+				</View>
+				<View>
+				{
+					this.state.errorMessage ? <Text style={styles.errorMessage}>{this.state.errorMessage}</Text> : null
+				}
+				</View>
 			</View>
 		);
 	}
@@ -102,6 +155,14 @@ const styles = StyleSheet.create({
 		top: -95,
 		alignItems: 'center',
 		justifyContent: 'flex-start',
+	},
+	errorMessage: {
+		width: '100%',
+		display: 'flex',
+		alignItems: 'center',
+		textAlign: 'center',
+		color: 'white',
+		justifyContent: 'center'
 	},
 	button: {
 		alignItems: 'center',

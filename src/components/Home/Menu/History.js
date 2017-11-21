@@ -15,6 +15,9 @@ import Dimensions from 'Dimensions';
 
 import leftArrow from '../../../images/left-arrow.png';
 import HistoryList from './HistoryList';
+import axios from 'axios';
+import serverURL from '../../../serverURL';
+
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -22,8 +25,28 @@ const MARGIN = 40;
 
 export default class History extends Component {
 
-  state = {
-    modalVisible: false,
+  constructor(props) 
+  {
+  	super(props);
+
+  	this.state = {
+  		modalVisible: false,
+  		histories: []
+  	};
+
+  	this.setModalVisible = this.setModalVisible.bind(this);
+  }
+
+  componentWillMount() {
+  	const _this = this;
+  		
+  	axios.get(serverURL + 'getHistory/' + this.props.id)
+  	.then(function(response){
+  		_this.setState({histories: response.data});
+  	})
+  	.catch(function(error){
+		console.log(error);
+  	})
   }
 
   setModalVisible(visible) {
@@ -49,9 +72,13 @@ export default class History extends Component {
 				</TouchableOpacity>
           		<Text style={styles.textH1}> Histórico </Text>
           	</View>
-          	<HistoryList title="12/06/2017 - Titulo">
-          		  <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
-          	</HistoryList>
+          		{ this.state.histories.map(function(a)
+				    {	
+						return ( <HistoryList key={a.history_id} title={a.date}>
+		          		  <Text>{a.text}</Text>
+		          		</HistoryList> ) 
+				  	}) 
+          		}
           </View>
          </View>
         </Modal>

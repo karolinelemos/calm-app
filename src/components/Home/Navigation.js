@@ -14,14 +14,23 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import Menu, { MenuContext, MenuOptions, MenuOption, MenuTrigger } from 'react-native-menu';
 import Profile from './Menu/Profile'
 import History from './Menu/History'
+import axios from 'axios';
+import serverURL from '../../serverURL';
+
 
 export default class Navigation extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
+
+		this.state = {
+	  		histories: []
+  		};
 	}
 
-	_onPress() {
-
+	componentWillMount() 
+	{
+		
+  	
 	}
 
 	render() {
@@ -36,13 +45,16 @@ export default class Navigation extends Component {
 		      </MenuTrigger>
 		      <MenuOptions>
 		        <MenuOption>
-		        	<History />
-		        </MenuOption>
-		        <MenuOption>
-		        	<History />
+		         	<Profile />
 		        </MenuOption>
 		        <MenuOption>
 		         	<Profile />
+		        </MenuOption>
+		        <MenuOption>
+		         	<Profile />
+		        </MenuOption>
+		        <MenuOption>
+		        	<History id={this.props.id}/>
 		        </MenuOption>
 		      </MenuOptions>
 		    </Menu>

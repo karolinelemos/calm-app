@@ -12,8 +12,9 @@ import {
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import Wallpaper from './Wallpaper';
-
+import axios from 'axios';
 import leftArrow from '../../images/left-arrow.png';
+import serverURL from '../../serverURL';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -21,12 +22,46 @@ const MARGIN = 40;
 
 export default class NewAccount extends Component {
 
-  state = {
-    modalVisible: false,
-  }
+  constructor() {
+		super();
+
+		  this.state = {
+		    modalVisible: false,
+		    email: '', 
+		    password: '', 
+		    passwordConfirm: '',
+		    errorMessage: null
+		  }
+
+		this.create = this.create.bind(this);
+	}
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
+  }
+
+  create() {
+    console.log(this.state);
+    var password = this.state.password;
+    var psConfirm = this.state.passwordConfirm;
+    var _this = this;
+    if(password == psConfirm)
+    {
+    	_this.setState({errorMessage: null});
+    	axios.post(serverURL + 'saveUser', {
+		    email: this.state.email,
+		    password: this.state.password
+		  })
+		  .then(function (response) {
+		    _this.setState({modalVisible: false});
+		  })
+		  .catch(function (error) {
+		   _this.setState({errorMessage: 'Ocorreu um erro interno. Tente novamente.'});
+		});
+
+    } else {
+    	this.setState({errorMessage: 'Senhas não correspondem'})
+    }
   }
 
   render() {
@@ -57,7 +92,8 @@ export default class NewAccount extends Component {
 					returnKeyType={'done'}
 					autoCorrect={false} 
 					placeholderTextColor='white'
-					underlineColorAndroid='transparent' />
+					underlineColorAndroid='transparent'
+					onChangeText={(email) => this.setState({email})} />
 				<TextInput style={styles.input}
 					placeholder='Senha'
 					secureTextEntry={true}
@@ -65,7 +101,8 @@ export default class NewAccount extends Component {
 					returnKeyType={'done'}
 					autoCorrect={false} 
 					placeholderTextColor='white'
-					underlineColorAndroid='transparent' />
+					underlineColorAndroid='transparent'
+					onChangeText={(password) => this.setState({password})} />
 				<TextInput style={styles.input}
 					placeholder='Confirmar senha'
 					secureTextEntry={true}
@@ -73,9 +110,16 @@ export default class NewAccount extends Component {
 					returnKeyType={'done'}
 					autoCorrect={false} 
 					placeholderTextColor='white'
-					underlineColorAndroid='transparent' />
+					underlineColorAndroid='transparent' 
+					onChangeText={(passwordConfirm) => this.setState({passwordConfirm})} />
 
-					<TouchableOpacity style={styles.button}>
+					{
+						this.state.errorMessage ?
+						<Text style={styles.errorMessage}>{this.state.errorMessage}</Text> 
+						: null
+					}	
+
+					<TouchableOpacity style={styles.button} onPress={this.create}>
 						<Text style={{color: 'white'}}>Criar</Text>
 					</TouchableOpacity>
 
@@ -110,6 +154,14 @@ const styles = StyleSheet.create({
 		color: 'white',
 		padding: 20,
 		fontSize: 21
+	},
+	errorMessage: {
+		width: '100%',
+		display: 'flex',
+		alignItems: 'center',
+		textAlign: 'center',
+		color: 'white',
+		justifyContent: 'center'
 	},
 	input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',

@@ -18,14 +18,16 @@ import Navigation from './Navigation';
 import image1 from '../../images/frase7.jpg';
 import tutorial from '../../images/exercicio.gif';
 import image2 from '../../images/frase2.jpg';
+import serverURL from '../../serverURL';
+import axios from 'axios';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 const MARGIN = 40;
 
 export default class Home extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = { 
             image: image1,
@@ -35,11 +37,13 @@ export default class Home extends Component {
             Istext: false, 
             cancelButton: false, 
             stage1: true,
-            history: ''
+            history: '', 
+            errorMessage: null
         }
 
         this._onPress = this._onPress.bind(this);
         this._continueApp = this._continueApp.bind(this);
+        this._saveHistory = this._saveHistory.bind(this);
 	}
 
 	_onPress() {
@@ -77,10 +81,32 @@ export default class Home extends Component {
 		this.setState({stage1: false});
 	}
 
+	_saveHistory() {
+		const _this = this;
+		_this.setState({errorMessage: null});
+
+		if(this.state.errorMessage)
+		{
+			axios.post(serverURL + 'saveHistory', {
+			    date: new Date(),
+			    text: this.state.history,
+			    user_id: this.props.id
+			  })
+			  .then(function (response) {
+			   	_this.setState({errorMessage: 'Mensagem salva com sucesso!'});
+			  })
+			  .catch(function (error) {
+			   _this.setState({errorMessage: 'Ocorreu um erro interno. Tente novamente.'});
+			});
+		} else {
+			_this.setState({errorMessage: 'Digite a mensagem.'});
+		}
+	}
+
 	render() { 
 		return (
-			<MenuContext style={{ flex: 1 }}>
-			  <Navigation />
+			<MenuContext style={{ flex: 1, paddingTop: 20 }}>
+			  <Navigation id={this.props.id}/>
 			  {this.state.stage1 ?
 				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 				  	{!this.state.Istext ? 
@@ -120,10 +146,15 @@ export default class Home extends Component {
 							placeholderTextColor='white'
 							underlineColorAndroid='#F035E0' />
 			  			<TouchableOpacity style={styles.button}
-							onPress={this._openGalery}
+							onPress={this._saveHistory}
 							activeOpacity={1}>
 							<Text style={styles.textButton}>RELATAR</Text> 
 						</TouchableOpacity>
+						{
+							this.state.errorMessage ?
+							<Text>{this.state.errorMessage}</Text>
+							: null
+						}
 			  		</View>
 			  	}			
 
