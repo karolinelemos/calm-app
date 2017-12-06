@@ -74,7 +74,7 @@ export default class History extends Component {
           	</View>
           		{ this.state.histories.map(function(a)
 				    {	
-						return ( <HistoryList key={a.history_id} title={a.date}>
+						return ( <HistoryList key={a.history_id} title={(new Date (a.date.substr(0 , a.date.indexOf("T")))).toLocaleDateString()}>
 		          		  <Text>{a.text}</Text>
 		          		</HistoryList> ) 
 				  	}) 

@@ -13,6 +13,8 @@ import {
 import Dimensions from 'Dimensions';
 
 import leftArrow from '../../../images/left-arrow.png';
+import axios from 'axios';
+import serverURL from '../../../serverURL';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -20,12 +22,33 @@ const MARGIN = 40;
 
 export default class Profile extends Component {
 
-  state = {
-    modalVisible: false,
+   constructor(props) 
+  {
+  	super(props);
+
+  	this.state = {
+  		modalVisible: false,
+  		profile: []
+  	};
+
+  	this.setModalVisible = this.setModalVisible.bind(this);
   }
 
-  setModalVisible(visible) {
+    setModalVisible(visible) {
     this.setState({modalVisible: visible});
+  }
+
+  componentWillMount() {
+  	const _this = this;
+  		
+  	axios.get(serverURL + 'getProfile/' + this.props.id)
+  	.then(function(response){
+  		_this.setState({profile: response.data[0]});
+  		console.log(response.data)
+  	})
+  	.catch(function(error){
+		console.log(error);
+  	})
   }
 
   render() {
@@ -53,7 +76,7 @@ export default class Profile extends Component {
 					autoCapitalize={'none'}
 					returnKeyType={'done'}
 					autoCorrect={false}
-					value='karolineclemos@hotmail.com'
+					value={this.state.profile.email}
 					placeholderTextColor='white'
 					underlineColorAndroid='#F035E0' />
 				<Text style={styles.label}> Senha </Text>
@@ -63,18 +86,7 @@ export default class Profile extends Component {
 					autoCapitalize={'none'}
 					returnKeyType={'done'}
 					autoCorrect={false}
-					value='teste'
-					placeholderTextColor='white'
-					underlineColorAndroid='#F035E0' />
-				<Text style={styles.label}> Quem sou eu </Text>
-				<TextInput style={styles.textArea}
-					placeholder='Descrição'
-					autoCapitalize={'none'}
-					returnKeyType={'done'}
-					multiline = {true}
-					numberOfLines = {10}
-					autoCorrect={false}
-					value='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+					value={this.state.profile.password}
 					placeholderTextColor='white'
 					underlineColorAndroid='#F035E0' />
 			</View>

@@ -7,7 +7,7 @@ import {
 	ActivityIndicator,
 	TouchableOpacity,
 	Image,
-	TextInput,
+	TextInput
 } from 'react-native';
 
 import UserInput from './UserInput';
@@ -17,6 +17,7 @@ import SignupSection from './SignupSection';
 import usernameImg from '../../images/username.png';
 import passwordImg from '../../images/password.png';
 import eyeImg  from '../../images/eye_black.png';
+
 
 export default class Form extends Component {
 	constructor(props) {
@@ -33,8 +34,9 @@ export default class Form extends Component {
 		this.changePassword = this.changePassword.bind(this);
 	}
 
-	componentWillMount() {
-		this.props.updateParentState('filhoww');
+	componentWillMount() { 
+		
+	
 	}
 
 	changeEmail(email) {

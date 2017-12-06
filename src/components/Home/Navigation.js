@@ -40,18 +40,18 @@ export default class Navigation extends Component {
 		    	<Text style={{color: 'white'}}> Calm App</Text>
 		    </View>
 		    <Menu>
-		      <MenuTrigger>
+		      <MenuTrigger >
 		        <Text style={{ fontSize: 20, color: 'white' }}>&#8942;</Text>
 		      </MenuTrigger>
-		      <MenuOptions>
-		        <MenuOption>
-		         	<Profile />
+		      <MenuOptions style={{ padding: 10}}>
+		       <MenuOption>
+		         	<Text></Text>
+		        </MenuOption>
+		         <MenuOption>
+		         	<Text></Text>
 		        </MenuOption>
 		        <MenuOption>
-		         	<Profile />
-		        </MenuOption>
-		        <MenuOption>
-		         	<Profile />
+		         	<Profile id={this.props.id}/>
 		        </MenuOption>
 		        <MenuOption>
 		        	<History id={this.props.id}/>
